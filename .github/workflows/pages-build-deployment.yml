@@ -1,0 +1,45 @@
+# Example pages build & deployment workflow
+# Copy this into .github/workflows/pages-build-deployment.yml and adapt the build/deploy steps.
+
+name: pages build and deployment
+
+# Allow this workflow to use the Actions API (needed if you cancel runs from a job)
+permissions:
+  actions: write
+  contents: read
+
+# Prevent duplicate builds from stacking: cancel prior runs in the same group
+concurrency:
+  group: pages-build-deployment-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js (if you use Node; otherwise replace)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          # adapt to your project
+          echo "Install step placeholder"
+      - name: Build
+        run: |
+          # adapt to your project build command
+          echo "Build step placeholder"
+      - name: Deploy
+        run: |
+          # adapt to your deployment (Pages / gh-pages / netlify etc.)
+          echo "Deploy step placeholder"
